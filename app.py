@@ -2311,7 +2311,10 @@ def main():
     print("")
     print("  open  ->  http://127.0.0.1:5000")
     print("")
-    app.run(host="127.0.0.1", port=5000, threaded=True,
+    # Online hosts (Render) hand us a PORT; locally we stay on 127.0.0.1:5000.
+    port = int(os.environ.get("PORT", 5000))
+    host = "0.0.0.0" if "PORT" in os.environ else "127.0.0.1"
+    app.run(host=host, port=port, threaded=True,
             debug=False, use_reloader=False)
 
 
